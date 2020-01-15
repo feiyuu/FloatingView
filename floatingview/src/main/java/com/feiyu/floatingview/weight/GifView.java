@@ -1,4 +1,4 @@
-package com.floatview.weight;
+package com.feiyu.floatingview.weight;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

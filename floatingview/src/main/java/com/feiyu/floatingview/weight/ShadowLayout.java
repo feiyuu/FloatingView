@@ -1,4 +1,4 @@
-package com.floatview.weight;
+package com.feiyu.floatingview.weight;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,7 +12,8 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import com.floatview.R;
+import com.ximalaya.floatingview.R;
+
 
 /**
  * @author hwj 2018/9/26

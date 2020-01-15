@@ -1,2 +1,1 @@
 include ':app', ':floatingview'
-rootProject.name='My Application'

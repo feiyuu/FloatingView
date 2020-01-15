@@ -7,7 +7,7 @@
     android:background="#00000000"
     >
 
-    <com.floatview.weight.ShadowLayout
+    <com.feiyu.floatingview.weight.ShadowLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -49,13 +49,13 @@
                 android:layout_gravity="center"
                 android:src="@drawable/bg_radius_black60"></ImageView>
 
-            <com.floatview.weight.GifView
+            <com.feiyu.floatingview.weight.GifView
                 android:id="@+id/gif_float"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_centerInParent="true"
-                android:layout_gravity="center"></com.floatview.weight.GifView>
+                android:layout_gravity="center"></com.feiyu.floatingview.weight.GifView>
 
         </RelativeLayout>
-    </com.floatview.weight.ShadowLayout>
+    </com.feiyu.floatingview.weight.ShadowLayout>
 </RelativeLayout>

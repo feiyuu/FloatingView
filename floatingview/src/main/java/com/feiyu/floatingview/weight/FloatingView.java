@@ -1,4 +1,4 @@
-package com.floatview.weight;
+package com.feiyu.floatingview.weight;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -14,9 +14,9 @@ import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-import com.floatview.R;
-import com.floatview.utils.CacheUtil;
-import com.floatview.utils.ScreenUtils;
+import com.feiyu.floatingview.utils.CacheUtil;
+import com.feiyu.floatingview.utils.ScreenUtils;
+import com.ximalaya.floatingview.R;
 
 
 /**

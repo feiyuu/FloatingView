@@ -2,7 +2,8 @@ package com.floatview;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.floatview.weight.FloatingView;
+import com.feiyu.floatingview.weight.FloatingView;
+
 
 /**
  * @author weijian.huang 2020/1/15
