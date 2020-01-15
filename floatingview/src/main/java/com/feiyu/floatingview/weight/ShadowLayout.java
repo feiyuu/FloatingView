@@ -12,7 +12,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import com.ximalaya.floatingview.R;
+import com.feiyu.floatingview.R;
 
 
 /**

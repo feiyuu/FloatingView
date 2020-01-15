@@ -14,10 +14,9 @@ import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.feiyu.floatingview.R;
 import com.feiyu.floatingview.utils.CacheUtil;
 import com.feiyu.floatingview.utils.ScreenUtils;
-import com.ximalaya.floatingview.R;
-
 
 /**
  * @author weijian.huang 2019/12/16
