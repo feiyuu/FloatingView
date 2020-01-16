@@ -15,5 +15,5 @@
 	}
 
 	dependencies {
-	        implementation 'com.github.feiyuu:FloatingView:Tag'
+	        implementation 'com.github.feiyuu:FloatingView:1.0.0'
 	}
