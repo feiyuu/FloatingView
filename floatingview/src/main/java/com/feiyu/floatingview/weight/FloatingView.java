@@ -3,7 +3,6 @@ package com.feiyu.floatingview.weight;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -129,29 +128,22 @@ public class FloatingView extends RelativeLayout {
                 updateWindowManager();
                 break;
             case MotionEvent.ACTION_UP:
-
                 if (mFloatBallParams.y < 200) {
                     mFloatBallParams.y = 0;
                 } else if (mFloatBallParams.y > mScreenHeight - 200) {
                     mFloatBallParams.y = mScreenHeight - getHeight();
                 } else {
-                    if (mFloatBallParams.x < mScreenWidth / 2) {
+                    if (mFloatBallParams.x < mScreenWidth / 2 - getWidth() / 2) {
                         mFloatBallParams.x = 0;
-                    } else if (mFloatBallParams.x > mScreenWidth / 2) {
+                    } else {
                         mFloatBallParams.x = mScreenWidth - getWidth();
                     }
                 }
                 updateWindowManager();
-
                 break;
             default:
                 break;
         }
-
-        Log.v("X-Y",
-                "mScreenHeight: " + mScreenHeight + "\n"
-                        + "mScreenHeight - getHeight(): " + (mScreenHeight - getHeight()) + "\n"
-        );
 //        Log.v("X-Y",
 //                "inputStartX: " + inputStartX + "\n"
 //                        + "inputStartY: " + inputStartY + "\n"
