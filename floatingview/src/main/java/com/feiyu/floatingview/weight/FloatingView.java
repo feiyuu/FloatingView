@@ -128,9 +128,9 @@ public class FloatingView extends RelativeLayout {
                 updateWindowManager();
                 break;
             case MotionEvent.ACTION_UP:
-                if (mFloatBallParams.y < 200) {
+                if (mFloatBallParams.y < getHeight()) {
                     mFloatBallParams.y = 0;
-                } else if (mFloatBallParams.y > mScreenHeight - 200) {
+                } else if (mFloatBallParams.y > mScreenHeight - getHeight()*2) {
                     mFloatBallParams.y = mScreenHeight - getHeight();
                 } else {
                     if (mFloatBallParams.x < mScreenWidth / 2 - getWidth() / 2) {
