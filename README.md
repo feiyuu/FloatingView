@@ -20,5 +20,5 @@
 	}
 
 	dependencies {
-	        implementation 'com.github.feiyuu:FloatingView:1.0.0'
+	        implementation 'com.github.feiyuu:FloatingView:1.0.1'
 	}
