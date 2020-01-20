@@ -3,14 +3,6 @@ package com.feiyu.floatingview.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Title: PartySharedPreferenceUtil.java <br/>
- * Description: <br/>
- * Copyright (c) 传化物流版权所有 2015 <br/>
- * Create DateTime: 2015-12-12 上午11:58:56
- * 
- * @author ruisong.li
- */
 public class PartySharedPreferenceUtil {
 	private SharedPreferences mInstance = null;
 

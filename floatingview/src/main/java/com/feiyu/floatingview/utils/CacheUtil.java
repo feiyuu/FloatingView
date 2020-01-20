@@ -13,14 +13,6 @@ import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Title: CacheUtil.java <br/>
- * Description: <br/>
- * Copyright (c) 传化物流版权所有 2015 <br/>
- * Create DateTime: 2015-12-12 上午11:58:56
- * 
- * @author ruisong.li
- */
 public class CacheUtil {
 
 	/**

@@ -17,14 +17,6 @@ import com.feiyu.floatingview.R;
 import com.feiyu.floatingview.utils.CacheUtil;
 import com.feiyu.floatingview.utils.ScreenUtils;
 
-/**
- * @author weijian.huang 2019/12/16
- * @Package com.transfar.peaceinn.ui.module.ximalaya
- * @Title: XimalayaFloatView
- * @Description: (用一句话描述该文件做什么)
- * Copyright (c) 传化公路港物流有限公司版权所有
- * Create DateTime: 2019/12/16
- */
 public class FloatingView extends RelativeLayout {
     private static final String TAG = "FloatingView";
     private int inputStartX = 0;

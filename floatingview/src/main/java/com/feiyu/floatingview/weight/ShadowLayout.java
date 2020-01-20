@@ -14,15 +14,6 @@ import android.widget.FrameLayout;
 
 import com.feiyu.floatingview.R;
 
-
-/**
- * @author hwj 2018/9/26
- * @Package com.transfar.peaceinn.ui.module.help.widget.ShadowLayout
- * @Title: ShadowLayout
- * @Description: (自定义阴影控件 ， 用法 ： 包裹任意view ， 设置阴影和偏移量)
- * Copyright (c) 浙江传化陆鲸科技有限公司版权所有
- * Create DateTime: 2018/9/26
- */
 public class ShadowLayout extends FrameLayout {
 
     private int mShadowColor;
@@ -115,7 +106,7 @@ public class ShadowLayout extends FrameLayout {
         }
 
         try {
-                mCornerRadius = attr.getDimension(R.styleable.ShadowLayout_sl_cornerRadius, getResources().getDimension(R.dimen.default_corner_radius));
+            mCornerRadius = attr.getDimension(R.styleable.ShadowLayout_sl_cornerRadius, getResources().getDimension(R.dimen.default_corner_radius));
             mShadowRadius = attr.getDimension(R.styleable.ShadowLayout_sl_shadowRadius, getResources().getDimension(R.dimen.default_shadow_radius));
             mDx = attr.getDimension(R.styleable.ShadowLayout_sl_dx, 0);
             mDy = attr.getDimension(R.styleable.ShadowLayout_sl_dy, 0);
