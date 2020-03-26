@@ -1,18 +1,19 @@
 package com.feiyu.floatingview.weight;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
-import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.bumptech.glide.request.RequestOptions;
+import androidx.core.view.ViewConfigurationCompat;
+
 import com.feiyu.floatingview.R;
 import com.feiyu.floatingview.utils.CacheUtil;
 import com.feiyu.floatingview.utils.ScreenUtils;
@@ -29,14 +30,16 @@ public class FloatingView extends RelativeLayout {
     private WindowManager.LayoutParams mFloatBallParams;
     private WindowManager mWindowManager;
     private Context mContext;
-    private final int mScreenHeight;
-    private final int mScreenWidth;
+    private int mScreenHeight;
+    private int mScreenWidth;
     private boolean mIsShow;
     private ImageView mSdv_cover;
     private GifView mGif_float;
     private int mDp94;
     private int mDp48;
     private boolean mLoading;
+    private ValueAnimator mValueAnimator;
+    private boolean moveVertical;
 
     public boolean isShow() {
         return mIsShow;
@@ -63,17 +66,13 @@ public class FloatingView extends RelativeLayout {
         mGif_float.play();
 
         initFloatBallParams(mContext);
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         mScreenWidth = ScreenUtils.getScreenWidth(context);
         mScreenHeight = ScreenUtils.getScreenHeight(context);
         mDp94 = (int) ScreenUtils.dp2px(mContext, 167);
         mDp48 = (int) ScreenUtils.dp2px(mContext, 48);
         CacheUtil.open(mContext);
+        slop = ViewConfigurationCompat.getScaledPagingTouchSlop(ViewConfiguration.get(context));
     }
 
     /**
@@ -102,48 +101,114 @@ public class FloatingView extends RelativeLayout {
         mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
     }
 
+    private int slop;
+    private boolean isDrag;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                setPressed(true);
+                isDrag = false;
                 inputStartX = (int) event.getRawX();
                 inputStartY = (int) event.getRawY();
                 viewStartX = mFloatBallParams.x;
                 viewStartY = mFloatBallParams.y;
                 break;
             case MotionEvent.ACTION_MOVE:
+
                 inMovingX = (int) event.getRawX();
                 inMovingY = (int) event.getRawY();
+                int MoveX = viewStartX + inMovingX - inputStartX;
+                int MoveY = viewStartY + inMovingY - inputStartY;
 
-                mFloatBallParams.x = viewStartX + inMovingX - inputStartX;
-                mFloatBallParams.y = viewStartY + inMovingY - inputStartY;
+                if (mScreenHeight <= 0 || mScreenWidth <= 0) {
+                    isDrag = false;
+                    break;
+                }
+                //这里修复一些华为手机无法触发点击事件
+                int distance = (int) Math.sqrt(mFloatBallParams.x * MoveX + mFloatBallParams.y * MoveY);
+                if (distance == 0 || distance <= slop) {
+                    isDrag = false;
+                    break;
+                }
+                isDrag = true;
+
+                mFloatBallParams.x = MoveX;
+                mFloatBallParams.y = MoveY;
                 updateWindowManager();
                 break;
             case MotionEvent.ACTION_UP:
-                if (mFloatBallParams.y < getHeight()) {
-                    mFloatBallParams.y = 0;
-                } else if (mFloatBallParams.y > mScreenHeight - getHeight()*2) {
-                    mFloatBallParams.y = mScreenHeight - getHeight();
-                } else {
-                    if (mFloatBallParams.x < mScreenWidth / 2 - getWidth() / 2) {
-                        mFloatBallParams.x = 0;
-                    } else {
-                        mFloatBallParams.x = mScreenWidth - getWidth();
-                    }
+                if (isDrag) {
+                    //恢复按压效果
+                    setPressed(false);
                 }
-                updateWindowManager();
+                welt();
                 break;
             default:
                 break;
         }
-//        Log.v("X-Y",
-//                "inputStartX: " + inputStartX + "\n"
-//                        + "inputStartY: " + inputStartY + "\n"
-//                        + "viewStartX: " + viewStartX + "\n"
-//                        + "viewStartY: " + viewStartY + "\n"
-//                        + "inMovingX: " + inMovingX + "\n"
-//                        + "inMovingY: " + inMovingY + "\n");
-        return super.onTouchEvent(event);
+        return isDrag || super.onTouchEvent(event);
+    }
+
+    private boolean isLeftSide() {
+        return getX() == 0;
+    }
+
+    private boolean isRightSide() {
+        return getX() == mScreenWidth - getWidth();
+    }
+
+    private void welt() {
+
+        int movedX = mFloatBallParams.x;
+        int movedY = mFloatBallParams.y;
+
+        moveVertical = false;
+        if (mFloatBallParams.y < getHeight() && mFloatBallParams.x >= slop && mFloatBallParams.x <= mScreenWidth - getWidth() - slop) {
+            movedY = 0;
+        } else if (mFloatBallParams.y > mScreenHeight - getHeight() * 2 && mFloatBallParams.x >= slop && mFloatBallParams.x <= mScreenWidth - getWidth() - slop) {
+            movedY = mScreenHeight - getHeight();
+        } else {
+            moveVertical = true;
+            if (mFloatBallParams.x < mScreenWidth / 2 - getWidth() / 2) {
+                movedX = 0;
+            } else {
+                movedX = mScreenWidth - getWidth();
+            }
+        }
+
+        int duration;
+        if (moveVertical) {
+            mValueAnimator = ValueAnimator.ofInt(mFloatBallParams.x, movedX);
+            duration = movedX - mFloatBallParams.x;
+        } else {
+            mValueAnimator = ValueAnimator.ofInt(mFloatBallParams.y, movedY);
+            duration = movedY - mFloatBallParams.y;
+        }
+        mValueAnimator.setDuration(Math.abs(duration));
+        mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                Integer level = (Integer) animation.getAnimatedValue();
+                if (moveVertical) {
+                    mFloatBallParams.x = level;
+                } else {
+                    mFloatBallParams.y = level;
+                }
+                updateWindowManager();
+            }
+        });
+        mValueAnimator.setInterpolator(new AccelerateInterpolator());
+        mValueAnimator.start();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        if (null != mValueAnimator && mValueAnimator.isRunning()) {
+            mValueAnimator.cancel();
+        }
+        super.onDetachedFromWindow();
     }
 
     /**
@@ -164,12 +229,8 @@ public class FloatingView extends RelativeLayout {
     /**
      * 贴图片
      */
-    public void loadImageView() {
-        if (null != mSdv_cover) {
-            Glide.with(mContext.getApplicationContext()).load("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3874919870,2456972669&fm=26&gp=0.jpg")
-                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                    .into(mSdv_cover);
-        }
+    public ImageView CircleImageView() {
+        return mSdv_cover;
     }
 
     /**
@@ -177,7 +238,6 @@ public class FloatingView extends RelativeLayout {
      */
     public void showFloat() {
         mIsShow = true;
-        loadImageView();
         int floatBallParamsX = CacheUtil.getInt("floatBallParamsX", -1);
         int floatBallParamsY = CacheUtil.getInt("floatBallParamsY", -1);
         if (floatBallParamsX == -1 || floatBallParamsY == -1) {

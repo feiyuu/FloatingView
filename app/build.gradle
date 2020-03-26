@@ -27,6 +27,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation 'com.github.bumptech.glide:glide:4.6.1'
-    //implementation project(':floatingview')
-   implementation 'com.github.feiyuu:FloatingView:1.0.3'
+    implementation project(':floatingview')
+    implementation 'com.github.feiyuu:UVideoPlayer:1.0.2'
+    //implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }
