@@ -6,13 +6,10 @@ import android.graphics.PixelFormat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
-import android.view.ViewConfiguration;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
-import androidx.core.view.ViewConfigurationCompat;
 
 import com.feiyu.floatingview.R;
 import com.feiyu.floatingview.utils.CacheUtil;
@@ -72,7 +69,8 @@ public class FloatingView extends RelativeLayout {
         mDp94 = (int) ScreenUtils.dp2px(mContext, 167);
         mDp48 = (int) ScreenUtils.dp2px(mContext, 48);
         CacheUtil.open(mContext);
-        slop = ViewConfigurationCompat.getScaledPagingTouchSlop(ViewConfiguration.get(context));
+        //slop = ViewConfigurationCompat.getScaledPagingTouchSlop(ViewConfiguration.get(context));
+        slop = 10;
     }
 
     /**
