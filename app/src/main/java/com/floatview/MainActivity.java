@@ -2,6 +2,7 @@ package com.floatview;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -24,5 +25,17 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(MainActivity.this,Main2Activity.class));
             }
         });
+        System.out.println();
+        Log.i("aasd12", "onCreate: "+isPowOfTwo(2784)+"=====================2784");
+    }
+    public static boolean isPowOfTwo(int n) {
+        int temp = 0;
+        for (int i = 1; ; i++) {
+            temp = (int) Math.pow(2, i);
+            if (temp >= n)
+                break;
+        }
+        if (temp == n) return true;
+        else return false;
     }
 }
