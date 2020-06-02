@@ -87,8 +87,8 @@ public class EggActivity extends AppCompatActivity implements UniversalVideoView
                 videoLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 videoLayoutParams.height = cachedHeight;
                 mVideoLayout.setLayoutParams(videoLayoutParams);
-                // mVideoView.setVideoPath(VIDEO_URL_02);
-                mVideoView.setVideoResId(R.raw.video456165154ninlop);
+                mVideoView.setVideoPath(VIDEO_URL_02);
+               // mVideoView.setVideoResId(R.raw.video456165154ninlop);
                 mVideoView.requestFocus();
             }
         });

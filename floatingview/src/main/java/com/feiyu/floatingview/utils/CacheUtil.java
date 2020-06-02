@@ -27,7 +27,7 @@ public class CacheUtil {
 	 * 请求数据不缓存
 	 */
 	public static final int CACHE_POLICY_REQUEST_NOT_CACHE = 2;
-	private static PartySharedPreferenceUtil mInstance = new PartySharedPreferenceUtil();
+	private static SharedPreferenceUtil mInstance = new SharedPreferenceUtil();
 	private static final String saveDataGrobalFileName = "saveDataGrobal";
 	/**
 	 * 以'-'分隔
