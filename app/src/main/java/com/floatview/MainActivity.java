@@ -26,7 +26,7 @@ public class MainActivity extends BaseActivity {
             }
         });
         System.out.println();
-        Log.i("aasd12", "onCreate: "+isPowOfTwo(2784)+"=====================2784");
+        Log.i("aasd12aaa", "onCreate: "+isPowOfTwo(2784)+"=====================2784");
     }
     public static boolean isPowOfTwo(int n) {
         int temp = 0;
