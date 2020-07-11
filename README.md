@@ -25,3 +25,4 @@
 	dependencies {
 	        implementation 'com.github.feiyuu:FloatingView:1.0.6'
 	}
+写的不好，没有考虑封装，大家结合自己项目自己封装下吧
