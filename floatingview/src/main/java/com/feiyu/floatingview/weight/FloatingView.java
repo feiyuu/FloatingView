@@ -6,13 +6,15 @@ import android.graphics.PixelFormat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.ViewConfiguration;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import androidx.core.view.ViewConfigurationCompat;
+
 import com.feiyu.floatingview.R;
-import com.feiyu.floatingview.utils.CacheUtil;
 import com.feiyu.floatingview.utils.ScreenUtils;
 
 public class FloatingView extends RelativeLayout {
@@ -37,6 +39,8 @@ public class FloatingView extends RelativeLayout {
     private boolean mLoading;
     private ValueAnimator mValueAnimator;
     private boolean moveVertical;
+    private static int mFloatBallParamsX;
+    private static int mFloatBallParamsY;
 
     public boolean isShow() {
         return mIsShow;
@@ -68,15 +72,14 @@ public class FloatingView extends RelativeLayout {
         mScreenHeight = ScreenUtils.getScreenHeight(context);
         mDp94 = (int) ScreenUtils.dp2px(mContext, 167);
         mDp48 = (int) ScreenUtils.dp2px(mContext, 48);
-        CacheUtil.open(mContext);
-        //slop = ViewConfigurationCompat.getScaledPagingTouchSlop(ViewConfiguration.get(context));
-        slop = 10;
+        slop = ViewConfigurationCompat.getScaledPagingTouchSlop(ViewConfiguration.get(context));
     }
 
     /**
      * 获取悬浮球的布局参数
      */
     private void initFloatBallParams(Context context) {
+
         mFloatBallParams = new WindowManager.LayoutParams();
         mFloatBallParams.flags = mFloatBallParams.flags
                 | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
@@ -124,17 +127,17 @@ public class FloatingView extends RelativeLayout {
                     isDrag = false;
                     break;
                 }
-                //这里修复一些华为手机无法触发点击事件
-                int distance = (int) Math.sqrt(mFloatBallParams.x * MoveX + mFloatBallParams.y * MoveY);
-                if (distance == 0 || distance <= slop) {
-                    isDrag = false;
-                    break;
-                }
-                isDrag = true;
 
-                mFloatBallParams.x = MoveX;
-                mFloatBallParams.y = MoveY;
-                updateWindowManager();
+                if (Math.abs(inMovingX - inputStartX) > slop
+                        && Math.abs(inMovingY - inputStartY) > slop) {
+                    isDrag = true;
+
+                    mFloatBallParams.x = MoveX;
+                    mFloatBallParams.y = MoveY;
+                    updateWindowManager();
+                } else {
+                    isDrag = false;
+                }
                 break;
             case MotionEvent.ACTION_UP:
                 if (isDrag) {
@@ -236,16 +239,14 @@ public class FloatingView extends RelativeLayout {
      */
     public void showFloat() {
         mIsShow = true;
-        int floatBallParamsX = CacheUtil.getInt("floatBallParamsX", -1);
-        int floatBallParamsY = CacheUtil.getInt("floatBallParamsY", -1);
-        if (floatBallParamsX == -1 || floatBallParamsY == -1) {
+        if (mFloatBallParamsX == -1 || mFloatBallParamsY == -1) {
             mFloatBallParams.x = mScreenWidth - mDp48;
             mFloatBallParams.y = mScreenHeight - mDp94 - mDp48;
-            CacheUtil.putInt("floatBallParamsX", mFloatBallParams.x);
-            CacheUtil.putInt("floatBallParamsY", mFloatBallParams.y);
+            mFloatBallParamsX = mFloatBallParams.x;
+            mFloatBallParamsY = mFloatBallParams.y;
         } else {
-            mFloatBallParams.x = floatBallParamsX;
-            mFloatBallParams.y = floatBallParamsY;
+            mFloatBallParams.x = mFloatBallParamsX;
+            mFloatBallParams.y = mFloatBallParamsY;
         }
         mWindowManager.addView(this, mFloatBallParams);
     }
@@ -261,8 +262,8 @@ public class FloatingView extends RelativeLayout {
     //更新位置，并保存到手机内存
     public void updateWindowManager() {
         mWindowManager.updateViewLayout(this, mFloatBallParams);
-        CacheUtil.putInt("floatBallParamsX", mFloatBallParams.x);
-        CacheUtil.putInt("floatBallParamsY", mFloatBallParams.y);
+        mFloatBallParamsX = mFloatBallParams.x;
+        mFloatBallParamsY = mFloatBallParams.y;
     }
 
 
@@ -271,7 +272,7 @@ public class FloatingView extends RelativeLayout {
             return;
         }
         mLoading = true;
-        //网络请求
+        // TODO网络请求
     }
 
 }
