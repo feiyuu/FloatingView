@@ -109,12 +109,17 @@ public class FloatingView extends RelativeLayout {
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                if (null != mValueAnimator && mValueAnimator.isRunning()) {
+                    mValueAnimator.cancel();
+                }
+
                 setPressed(true);
                 isDrag = false;
                 inputStartX = (int) event.getRawX();
                 inputStartY = (int) event.getRawY();
                 viewStartX = mFloatBallParams.x;
                 viewStartY = mFloatBallParams.y;
+
                 break;
             case MotionEvent.ACTION_MOVE:
 
@@ -249,6 +254,8 @@ public class FloatingView extends RelativeLayout {
             mFloatBallParams.y = mFloatBallParamsY;
         }
         mWindowManager.addView(this, mFloatBallParams);
+
+        welt();
     }
 
     /**
