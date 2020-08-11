@@ -5,7 +5,7 @@
 无需权限，小米魅族华为不需适配机型，代码少，性能比悬浮窗高很多。  
 1.0.4：优化了整体  
 1.0.6：去掉了所有依赖，防止引入冲突  
-1.0.8：解决部分华为手机异常，优化性能，增加针对表态操作的健壮性加强  
+1.0.8：解决部分华为手机异常，优化性能，增加针对变态操作的健壮性加强  
 
 <p align="center">
 	<img src="https://github.com/feiyuu/FloatingView/blob/master/untitled.gif" alt="图裂请去博客看"  width="280" height="498">
