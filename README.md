@@ -8,7 +8,7 @@
 1.0.8：解决部分华为手机异常，优化性能，增加针对变态操作的健壮性加强  
 
 <p align="center">
-	<img src="https://github.com/feiyuu/FloatingView/blob/master/untitled.gif" alt="图裂请去博客看"  width="280" height="498">
+	<img src="https://github.com/feiyuu/FloatingView/blob/master/untitled1.gif" alt="图裂请去博客看"  width="280" height="498">
 	<p align="center">
 		<em>图片示例</em>
 	</p>
