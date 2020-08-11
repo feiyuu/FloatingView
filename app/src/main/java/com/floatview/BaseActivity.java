@@ -35,7 +35,7 @@ public class BaseActivity extends AppCompatActivity {
 
                 }
             });
-            Glide.with(getApplicationContext()).load("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3874919870,2456972669&fm=26&gp=0.jpg")
+            Glide.with(getApplicationContext()).load("https://p26-tt.byteimg.com/origin/pgc-image/6ffb4c43c75749dd9af820028871242b")
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(floatingView.CircleImageView());
         }

@@ -63,7 +63,7 @@ public class FloatingView extends RelativeLayout {
         mSdv_cover = findViewById(R.id.sdv_cover);
         mGif_float = findViewById(R.id.gif_float);
         mGif_float.setOnShot(false);
-        mGif_float.setGifResource(R.mipmap.float_gif);
+        mGif_float.setGifResource(R.mipmap.mailgif);
         mGif_float.play();
 
         initFloatBallParams(mContext);
@@ -194,6 +194,7 @@ public class FloatingView extends RelativeLayout {
         }
         mValueAnimator.setDuration(Math.abs(duration));
         mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 Integer level = (Integer) animation.getAnimatedValue();
