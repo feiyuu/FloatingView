@@ -6,13 +6,10 @@ import android.graphics.PixelFormat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
-import android.view.ViewConfiguration;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
-import androidx.core.view.ViewConfigurationCompat;
 
 import com.feiyu.floatingview.R;
 import com.feiyu.floatingview.utils.ScreenUtils;
@@ -34,7 +31,7 @@ public class FloatingView extends RelativeLayout {
     private boolean mIsShow;
     private ImageView mSdv_cover;
     private GifView mGif_float;
-    private int mDp94;
+    private int mDp167;
     private int mDp48;
     private boolean mLoading;
     private ValueAnimator mValueAnimator;
@@ -70,9 +67,10 @@ public class FloatingView extends RelativeLayout {
 
         mScreenWidth = ScreenUtils.getScreenWidth(context);
         mScreenHeight = ScreenUtils.getScreenHeight(context);
-        mDp94 = (int) ScreenUtils.dp2px(mContext, 167);
+        mDp167 = (int) ScreenUtils.dp2px(mContext, 167);
         mDp48 = (int) ScreenUtils.dp2px(mContext, 48);
-        slop = ViewConfigurationCompat.getScaledPagingTouchSlop(ViewConfiguration.get(context));
+//        slop = ViewConfigurationCompat.getScaledPagingTouchSlop(ViewConfiguration.get(context));
+        slop = 3;
     }
 
     /**
@@ -149,6 +147,7 @@ public class FloatingView extends RelativeLayout {
                     //恢复按压效果
                     setPressed(false);
                 }
+                //吸附贴边计算和动画
                 welt();
                 break;
             default:
@@ -165,6 +164,7 @@ public class FloatingView extends RelativeLayout {
         return getX() == mScreenWidth - getWidth();
     }
 
+    //吸附贴边计算和动画
     private void welt() {
 
         int movedX = mFloatBallParams.x;
@@ -214,7 +214,7 @@ public class FloatingView extends RelativeLayout {
     protected void onDetachedFromWindow() {
         if (null != mValueAnimator && mValueAnimator.isRunning()) {
             mValueAnimator.cancel();
-        }
+        }//进入下个页面的时候贴边动画暂停，下个页面attached时候会继续动画， 你手速快的话还能在中途接住球继续拖动
         super.onDetachedFromWindow();
     }
 
@@ -246,8 +246,10 @@ public class FloatingView extends RelativeLayout {
     public void showFloat() {
         mIsShow = true;
         if (mFloatBallParamsX == -1 || mFloatBallParamsY == -1) {
+            //首次打开时，初始化的位置
             mFloatBallParams.x = mScreenWidth - mDp48;
-            mFloatBallParams.y = mScreenHeight - mDp94 - mDp48;
+            mFloatBallParams.y = mScreenHeight - mDp167 - mDp48;
+
             mFloatBallParamsX = mFloatBallParams.x;
             mFloatBallParamsY = mFloatBallParams.y;
         } else {
@@ -255,7 +257,7 @@ public class FloatingView extends RelativeLayout {
             mFloatBallParams.y = mFloatBallParamsY;
         }
         mWindowManager.addView(this, mFloatBallParams);
-
+        //吸附贴边计算和动画
         welt();
     }
 
