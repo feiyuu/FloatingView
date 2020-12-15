@@ -27,3 +27,8 @@
 	        implementation 'com.github.feiyuu:FloatingView:1.0.6'
 	}
 没有考虑封装，要用的哥们下源码结合自己项目封装下吧
+
+感谢：
+https://github.com/feiyuu/GifView  
+https://github.com/feiyuu/UVideoPlayer  
+我自己
