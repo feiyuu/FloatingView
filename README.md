@@ -31,4 +31,4 @@
 感谢：
 https://github.com/feiyuu/GifView  
 https://github.com/feiyuu/UVideoPlayer  
-我自己
+没错都是我自己
