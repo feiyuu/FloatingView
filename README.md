@@ -8,6 +8,9 @@
 1.0.6：去掉了所有依赖，防止引入冲突  
 1.0.7：存储位置方式优化降低消耗，等细节  
 1.0.8：解决部分华为手机异常，优化性能，增加针对变态操作的健壮性加强  
+1.0.9:增加悬浮球的显示范围，避免悬浮球在部分手机被通知栏部分遮挡
+问题出现的手机为：小米9，redmi k30pro
+横屏必现(代码来自MoonBlueSky，感谢)
 
 <p align="center">
 	<img src="https://github.com/feiyuu/FloatingView/blob/master/untitled1.gif" alt="图裂请去博客看"  width="280" height="498">
